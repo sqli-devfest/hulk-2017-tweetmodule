@@ -6,6 +6,8 @@ require "mqtt"
 require "twitter"
 load "result_message.rb"
 
+$stdout.sync = true
+
 #twitter config
 @client = Twitter::REST::Client.new do |config|
   config.consumer_key        = ENV['twitter_consumer_key']
