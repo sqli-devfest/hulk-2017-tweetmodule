@@ -4,7 +4,7 @@
 
 require "mqtt"
 require "twitter"
-require 'json'
+load "result_message.rb"
 
 #twitter config
 @client = Twitter::REST::Client.new do |config|
@@ -14,21 +14,21 @@ require 'json'
   config.access_token_secret = ENV['twitter_access_token_secret']
 end
 
-
 #tweet the result message
-def tweet(message_hash)
-  tweet_string="#{message_hash['player']['firstName']} #{message_hash['player']['lastName']} a fait un score de #{message_hash['game']['score']}"
+def tweet(result_message)
+  tweet_string=result_message.message
   puts tweet_string
   @client.update(tweet_string)
 end
 
 #connect to the mqtt 'results topic' parse the result json messages and tweet them
 MQTT::Client.connect('mqtt') do |c|
+  puts "Connected to mqtt"
   c.get('results') do |topic,json_message|
     begin
       puts "#{topic}: #{json_message}"
-      message_hash = JSON.parse(json_message)
-      tweet message_hash
+      result_message = ResultMessage.new(json_message)
+      tweet result_message
     rescue Exception => e
       puts e.message
       puts e.backtrace.inspect
