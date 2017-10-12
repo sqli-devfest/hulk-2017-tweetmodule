@@ -6,16 +6,16 @@ class ResultMessage
 
   @@corresponding_hero_by_rank = {
 
-    1 => {name:"SUPER DUPONT",image_file:File.new("images/superdupont.jpeg","r")},
-    2 => {name:"CAPITAIN AMERICA",image_file:File.new("images/captainamerica.jpg","r")},
-    3 => {name:"FLASH",image_file:File.new("images/flash.jpg","r")},
-    4 => {name:"BATMAN",image_file:File.new("images/batman.jpg","r")},
-    5 => {name:"SPIDERMAN",image_file:File.new("images/spiderman.jpg","r")},
-    6 => {name:"WOLVERINE",image_file:File.new("images/wolverine.jpg","r")},
-    7 => {name:"IRON MAN",image_file:File.new("images/ironman.png","r")},
-    8 => {name:"THOR",image_file:File.new("images/thor.jpg","r")},
-    9 => {name:"SUPERMAN",image_file:File.new("images/superman.jpg","r")},
-    10 => {name:"HULK",image_file:File.new("images/hulk.jpg","r")}
+    1 => {name:"SUPER DUPONT",image_id:"918462225974743045"},
+    2 => {name:"CAPITAIN AMERICA",image_id:"918462178772049921"},
+    3 => {name:"FLASH",image_id:"918462187080994816"},
+    4 => {name:"BATMAN",image_id:"918462165195116544"},
+    5 => {name:"SPIDERMAN",image_id:"918462218416607233"},
+    6 => {name:"WOLVERINE",image_id:"918462253422317568"},
+    7 => {name:"IRON MAN",image_id:"918462209285554176"},
+    8 => {name:"THOR",image_id:"918462245167947776"},
+    9 => {name:"SUPERMAN",image_id:"918462234342412289"},
+    10 => {name:"HULK",image_id:"918462200951525376"}
 
   }
 
@@ -35,8 +35,8 @@ class ResultMessage
     @@corresponding_hero_by_rank[rank][:name]
   end
 
-  def corresponding_image
-    @@corresponding_hero_by_rank[rank][:image_file]
+  def corresponding_image_id
+    @@corresponding_hero_by_rank[rank][:image_id]
   end
 
 end
