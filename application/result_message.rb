@@ -22,7 +22,7 @@ class ResultMessage
   def initialize (json_message)
     message_hash = JSON.parse(json_message)
     @player_firstname = message_hash['player']['firstName']
-    @player_lastname = message_hash['player']['lastName']
+    @player_lastname = "#{message_hash['player']['lastName'][0]}"
     @score = message_hash['game']['score']
     @rank = message_hash['game']['rank']
   end
