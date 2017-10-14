@@ -14,4 +14,4 @@ RUN bundler install
 
 ADD application /application
 
-ENTRYPOINT ruby tweetmodule.rb
+ENTRYPOINT ruby tweetmodule.rb $config_type
