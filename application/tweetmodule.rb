@@ -26,9 +26,9 @@ end
 #tweet the result message
 def tweet(result_message)
   tweet_string = result_message.message
-  tweet_image_id = result_message.corresponding_image_id
+  tweet_image = result_message.corresponding_image
   puts tweet_string
-  @client.update(tweet_string,media_ids: tweet_image_id)
+  @client.update_with_media(tweet_string,tweet_image)
 end
 
 #connect to the mqtt 'results topic' parse the result json messages and tweet them
