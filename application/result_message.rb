@@ -19,18 +19,20 @@ class ResultMessage
 
   }
 
-  def initialize (json_message)
+  def initialize (json_message,devfestTwitterAccount,sqliTwitterAccount)
     message_hash = JSON.parse(json_message)
     @player_firstname = message_hash['player']['firstName']
     @player_lastname = "#{message_hash['player']['lastName'][0]}"
     @player_twitter_handle = message_hash['player']['twitterAccount']
     @score = message_hash['game']['score']
     @rank = message_hash['game']['rank']
+    @devfestTwitterAccount = devfestTwitterAccount
+    @sqliTwitterAccount = sqliTwitterAccount
   end
 
   def message
     name = (@player_twitter_handle.nil? or @player_twitter_handle.empty?) ? "#{player_firstname} #{player_lastname}" : @player_twitter_handle
-    "#{name} est fort (e) comme #{corresponding_hero} !\nEt toi ? Viens tester ta force sur le stand SQLI !\#HerostandSQLI"
+    "#{name} est fort (e) comme #{corresponding_hero} !\nEt toi ? Viens tester ta force sur le stand SQLI !\##{@devfestTwitterAccount} @#{@devfestTwitterAccount} @#{@sqliTwitterAccount}"
   end
 
   def corresponding_hero

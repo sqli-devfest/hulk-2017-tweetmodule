@@ -5,8 +5,13 @@
 require "mqtt"
 require "twitter"
 load "result_message.rb"
+load "configuration.rb"
+
 
 $stdout.sync = true
+
+#dev or prod
+config_type = ARGV[0]
 
 #twitter config
 @client = Twitter::REST::Client.new do |config|
@@ -15,6 +20,8 @@ $stdout.sync = true
   config.access_token        = ENV['twitter_access_token']
   config.access_token_secret = ENV['twitter_access_token_secret']
 end
+
+@config = Configuration.new(config_type)
 
 #tweet the result message
 def tweet(result_message)
@@ -30,7 +37,7 @@ MQTT::Client.connect('mqtt') do |c|
   c.get('results') do |topic,json_message|
     begin
       puts "#{topic}: #{json_message}"
-      result_message = ResultMessage.new(json_message)
+      result_message = ResultMessage.new(json_message,@config.devfestTwitterAccount,@config.sqliTwitterAccount)
       tweet result_message
     rescue Exception => e
       puts e.message
