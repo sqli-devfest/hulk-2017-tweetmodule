@@ -2,7 +2,7 @@ require 'json'
 
 class ResultMessage
 
-  attr_reader :player_firstname, :player_lastname, :score, :rank
+  attr_reader :player_firstname, :player_lastname, :score, :rank, :genderMale
 
   @@corresponding_hero_by_rank = {
 
@@ -24,6 +24,7 @@ class ResultMessage
     @player_firstname = message_hash['player']['firstName']
     @player_lastname = "#{message_hash['player']['lastName'][0]}"
     @player_twitter_handle = message_hash['player']['twitterAccount']
+    @genderMale = !message_hash['player']['genderMale'].nil? ? message_hash['player']['genderMale'] : true
     @score = message_hash['game']['score']
     @rank = message_hash['game']['rank']
     @devfestTwitterAccount = devfestTwitterAccount
@@ -33,7 +34,9 @@ class ResultMessage
   def message
     name = (@player_twitter_handle.nil? or @player_twitter_handle.empty?) ? "#{player_firstname} #{player_lastname}" : @player_twitter_handle
 
-    message = "#{name} est fort (e) comme #{corresponding_hero} !\nEt toi ? Viens tester ta force sur le stand SQLI ! @#{@devfestTwitterAccount}"
+    strong = (@genderMale) ? "fort" : "forte"
+
+    message = "#{name} est #{strong} comme #{corresponding_hero} !\nEt toi ? Viens tester ta force sur le stand SQLI ! @#{@devfestTwitterAccount}"
 
     additional_twitter_hashes = " \##{@devfestTwitterAccount} @#{@sqliTwitterAccount}"
 

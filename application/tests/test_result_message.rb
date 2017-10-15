@@ -54,6 +54,25 @@ class TestResultMessage < Test::Unit::TestCase
           assert(result_message.message.match(expected_message_regexp))
   end
 
+  def test_should_use_fort_if_gender_male
+          json_message_with_gender_male = '{"player" : {"firstName" : "Prenom","lastName" : "Nom","companyName" : "My Company","emailAddress" : "truc.much@mycompany.com", "genderMale": true},"game" : {"score" : 1002,"rank":10}}'
+          devfestTwitterAccount = "devfestTwitterAccount"
+          sqliTwitterAccount = "sqliTwitterAccount"
+          expected_message_regexp = /.* fort .*/
+          result_message = ResultMessage.new(json_message_with_gender_male,devfestTwitterAccount,sqliTwitterAccount)
+          puts result_message.message
+          assert(result_message.message.match(expected_message_regexp))
+end
+
+  def test_should_use_forte_if_gender_is_not_male
+          json_message_with_gender_is_not_male = '{"player" : {"firstName" : "Prenom","lastName" : "Nom","companyName" : "My Company","emailAddress" : "truc.much@mycompany.com", "genderMale": false},"game" : {"score" : 1002,"rank":10}}'
+          devfestTwitterAccount = "devfestTwitterAccount"
+          sqliTwitterAccount = "sqliTwitterAccount"
+          expected_message_regexp = /.* forte .*/
+          result_message = ResultMessage.new(json_message_with_gender_is_not_male,devfestTwitterAccount,sqliTwitterAccount)
+          puts result_message.message
+          assert(result_message.message.match(expected_message_regexp))
+end
 
 
 end
