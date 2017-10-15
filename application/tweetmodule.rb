@@ -35,13 +35,8 @@ end
 MQTT::Client.connect('mqtt') do |c|
   puts "Connected to mqtt"
   c.get('results') do |topic,json_message|
-    begin
-      puts "#{topic}: #{json_message}"
-      result_message = ResultMessage.new(json_message,@config.devfestTwitterAccount,@config.sqliTwitterAccount)
-      tweet result_message
-    rescue Exception => e
-      puts e.message
-      puts e.backtrace.inspect
-    end
+    puts "#{topic}: #{json_message}"
+    result_message = ResultMessage.new(json_message,@config.devfestTwitterAccount,@config.sqliTwitterAccount)
+    tweet result_message
   end
 end
