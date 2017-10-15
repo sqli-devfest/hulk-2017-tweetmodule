@@ -32,7 +32,16 @@ class ResultMessage
 
   def message
     name = (@player_twitter_handle.nil? or @player_twitter_handle.empty?) ? "#{player_firstname} #{player_lastname}" : @player_twitter_handle
-    "#{name} est fort (e) comme #{corresponding_hero} !\nEt toi ? Viens tester ta force sur le stand SQLI !\##{@devfestTwitterAccount} @#{@devfestTwitterAccount} @#{@sqliTwitterAccount}"
+
+    message = "#{name} est fort (e) comme #{corresponding_hero} !\nEt toi ? Viens tester ta force sur le stand SQLI ! @#{@devfestTwitterAccount}"
+
+    additional_twitter_hashes = " \##{@devfestTwitterAccount} @#{@sqliTwitterAccount}"
+
+    if ((message.length + additional_twitter_hashes.length) <= 140) then
+      message = message + additional_twitter_hashes
+    end
+
+    return message
   end
 
   def corresponding_hero

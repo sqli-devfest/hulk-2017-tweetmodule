@@ -34,6 +34,26 @@ class TestResultMessage < Test::Unit::TestCase
           assert(result_message.message.match(expected_message_regexp))
   end
 
+  def test_should_add_additional_twitter_hashes_if_message_length_is_short_enough()
+          json_message_with_absent_twitter_account_field = '{"player" : {"firstName" : "Prenom","lastName" : "Nom","companyName" : "My Company","emailAddress" : "truc.much@mycompany.com"},"game" : {"score" : 1002,"rank":10}}'
+          devfestTwitterAccount = "devfest"
+          sqliTwitterAccount = "sqli"
+          expected_message_regexp = /.* ##{devfestTwitterAccount} @#{sqliTwitterAccount}$/
+          result_message = ResultMessage.new(json_message_with_absent_twitter_account_field,devfestTwitterAccount,sqliTwitterAccount)
+          puts result_message.message
+          assert(result_message.message.match(expected_message_regexp))
+  end
+
+  def test_should_omit_additional_twitter_hashes_if_message_length_is_too_long()
+          json_message_with_absent_twitter_account_field = '{"player" : {"firstName" : "Prenom","lastName" : "Nom","companyName" : "My Company","emailAddress" : "truc.much@mycompany.com"},"game" : {"score" : 1002,"rank":10}}'
+          devfestTwitterAccount = "devfestTwitterAccount"
+          sqliTwitterAccount = "sqliTwitterAccount"
+          expected_message_regexp = /.* @#{devfestTwitterAccount}$/
+          result_message = ResultMessage.new(json_message_with_absent_twitter_account_field,devfestTwitterAccount,sqliTwitterAccount)
+          puts result_message.message
+          assert(result_message.message.match(expected_message_regexp))
+  end
+
 
 
 end
